@@ -29,6 +29,7 @@ import {
   Menu as MenuIcon,
 } from '@mui/icons-material';
 import { getVersions, getBooks, getVerses } from '../services/api';
+import AdSense from './AdSense';
 
 const BibleReader = () => {
   const [versions, setVersions] = useState([]);
@@ -199,7 +200,7 @@ const BibleReader = () => {
   );
 
   return (
-    <Box sx={{ pb: 7 }}>
+    <>
       <AppBar position="fixed" color="primary" elevation={0}>
         <Toolbar>
           <IconButton
@@ -235,108 +236,105 @@ const BibleReader = () => {
         {renderControls()}
       </Drawer>
 
-      <Container 
-        maxWidth="lg" 
-        sx={{ 
-          mt: 8,
-          px: isMobile ? 2 : 3,
-          py: 2,
-        }}
-      >
-        {loading ? (
-          <Box display="flex" justifyContent="center" my={4}>
-            <CircularProgress />
-          </Box>
-        ) : (
-          <Box>
-            {verses.map((verse) => (
-              <Box 
-                key={verse.number}
-                sx={{ 
-                  position: 'relative',
-                  mb: 2,
-                  '&:hover .share-buttons': {
-                    opacity: 1,
-                  },
-                }}
-              >
-                <Typography 
+      <Box sx={{ paddingTop: '64px' }}>
+        <Container maxWidth="lg" sx={{ py: 2 }}>
+          <AdSense />
+          {loading ? (
+            <Box display="flex" justifyContent="center" my={4}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <Box>
+              {verses.map((verse) => (
+                <Box 
+                  key={verse.number}
                   sx={{ 
-                    fontSize: `${fontSize}px`, 
-                    lineHeight: 1.8,
-                    pr: isMobile ? 0 : 8,
+                    position: 'relative',
+                    mb: 2,
+                    '&:hover .share-buttons': {
+                      opacity: 1,
+                    },
                   }}
                 >
-                  <Box 
-                    component="span" 
+                  <Typography 
                     sx={{ 
-                      fontWeight: 'bold', 
-                      color: 'primary.main',
-                      mr: 1,
-                      fontSize: `${fontSize * 0.8}px`,
+                      fontSize: `${fontSize}px`, 
+                      lineHeight: 1.8,
+                      pr: isMobile ? 0 : 8,
                     }}
                   >
-                    {verse.number}
-                  </Box>
-                  {verse.text}
-                </Typography>
-                <Box 
-                  className="share-buttons"
-                  sx={{ 
-                    position: isMobile ? 'relative' : 'absolute',
-                    right: isMobile ? 'auto' : 0,
-                    top: isMobile ? 'auto' : '50%',
-                    transform: isMobile ? 'none' : 'translateY(-50%)',
-                    display: 'flex',
-                    gap: 1,
-                    opacity: isMobile ? 1 : 0,
-                    transition: 'opacity 0.2s',
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    padding: '4px',
-                    borderRadius: '20px',
-                    mt: isMobile ? 1 : 0,
-                    justifyContent: isMobile ? 'center' : 'flex-start',
-                  }}
-                >
-                  <Tooltip title="Compartilhar no WhatsApp">
-                    <IconButton
-                      size="small"
-                      onClick={() => handleShare(verse, 'whatsapp')}
-                      sx={{ color: '#25D366' }}
-                    >
-                      <WhatsApp />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Compartilhar no Facebook">
-                    <IconButton
-                      size="small"
-                      onClick={() => handleShare(verse, 'facebook')}
-                      sx={{ color: '#1877F2' }}
-                    >
-                      <Facebook />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Compartilhar no Instagram">
-                    <IconButton
-                      size="small"
-                      onClick={() => handleShare(verse, 'instagram')}
+                    <Box 
+                      component="span" 
                       sx={{ 
-                        background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
-                        color: 'white',
-                        '&:hover': {
-                          background: 'linear-gradient(45deg, #bc1888 0%, #cc2366 25%, #dc2743 50%, #e6683c 75%, #f09433 100%)',
-                        },
+                        fontWeight: 'bold', 
+                        color: 'primary.main',
+                        mr: 1,
+                        fontSize: `${fontSize * 0.8}px`,
                       }}
                     >
-                      <Instagram />
-                    </IconButton>
-                  </Tooltip>
+                      {verse.number}
+                    </Box>
+                    {verse.text}
+                  </Typography>
+                  <Box 
+                    className="share-buttons"
+                    sx={{ 
+                      position: isMobile ? 'relative' : 'absolute',
+                      right: isMobile ? 'auto' : 0,
+                      top: isMobile ? 'auto' : '50%',
+                      transform: isMobile ? 'none' : 'translateY(-50%)',
+                      display: 'flex',
+                      gap: 1,
+                      opacity: isMobile ? 1 : 0,
+                      transition: 'opacity 0.2s',
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      padding: '4px',
+                      borderRadius: '20px',
+                      mt: isMobile ? 1 : 0,
+                      justifyContent: isMobile ? 'center' : 'flex-start',
+                    }}
+                  >
+                    <Tooltip title="Compartilhar no WhatsApp">
+                      <IconButton
+                        size="small"
+                        onClick={() => handleShare(verse, 'whatsapp')}
+                        sx={{ color: '#25D366' }}
+                      >
+                        <WhatsApp />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Compartilhar no Facebook">
+                      <IconButton
+                        size="small"
+                        onClick={() => handleShare(verse, 'facebook')}
+                        sx={{ color: '#1877F2' }}
+                      >
+                        <Facebook />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Compartilhar no Instagram">
+                      <IconButton
+                        size="small"
+                        onClick={() => handleShare(verse, 'instagram')}
+                        sx={{ 
+                          background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                          color: 'white',
+                          '&:hover': {
+                            background: 'linear-gradient(45deg, #bc1888 0%, #cc2366 25%, #dc2743 50%, #e6683c 75%, #f09433 100%)',
+                          },
+                        }}
+                      >
+                        <Instagram />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
                 </Box>
-              </Box>
-            ))}
-          </Box>
-        )}
-      </Container>
+              ))}
+            </Box>
+          )}
+          <AdSense />
+        </Container>
+      </Box>
 
       <Paper
         elevation={3}
@@ -371,7 +369,7 @@ const BibleReader = () => {
           <ChevronRight />
         </IconButton>
       </Paper>
-    </Box>
+    </>
   );
 };
 
