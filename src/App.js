@@ -1,8 +1,9 @@
 import './App.css';
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline, useMediaQuery } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BibleReader from './components/BibleReader';
 import Home from './components/Home';
+import DesktopWarning from './components/DesktopWarning';
 
 const theme = createTheme({
   palette: {
@@ -72,6 +73,17 @@ const theme = createTheme({
 });
 
 function App() {
+  const isDesktop = useMediaQuery('(min-width:1024px)');
+
+  if (isDesktop) {
+    return (
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <DesktopWarning />
+      </ThemeProvider>
+    );
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
