@@ -14,15 +14,10 @@ import {
   Slider,
   Tooltip,
   Drawer,
-  List,
-  ListItem,
-  ListItemText,
   AppBar,
   Toolbar,
   useTheme,
   useMediaQuery,
-  Fab,
-  Divider,
 } from '@mui/material';
 import {
   ChevronLeft,
@@ -32,7 +27,6 @@ import {
   Facebook,
   Instagram,
   Menu as MenuIcon,
-  Book as BookIcon,
 } from '@mui/icons-material';
 import { getVersions, getBooks, getVerses } from '../services/api';
 
@@ -61,14 +55,16 @@ const BibleReader = () => {
         setVersions(versionsRes.data);
         setBooks(booksRes.data);
         const currentBookData = booksRes.data.find(b => b.abbrev.pt === currentBook);
-        setMaxChapters(currentBookData.chapters);
-        setCurrentBookName(currentBookData.name);
+        if (currentBookData) {
+          setMaxChapters(currentBookData.chapters);
+          setCurrentBookName(currentBookData.name);
+        }
       } catch (error) {
         console.error('Error fetching initial data:', error);
       }
     };
     fetchInitialData();
-  }, []);
+  }, [currentBook]);
 
   useEffect(() => {
     const fetchVerses = async () => {
