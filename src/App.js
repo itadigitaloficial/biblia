@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BibleReader from './components/BibleReader';
 import Home from './components/Home';
 import DesktopWarning from './components/DesktopWarning';
+import InstallPWA from './components/InstallPWA';
 
 const theme = createTheme({
   palette: {
@@ -92,6 +93,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/reader" element={<BibleReader />} />
         </Routes>
+        <InstallPWA />
       </Router>
     </ThemeProvider>
   );
